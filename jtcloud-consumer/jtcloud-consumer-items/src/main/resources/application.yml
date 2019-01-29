@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+     profiles: dev
+     application:
+       name: consumer-items
+server:
+  port: 8092
+  servlet:
+    context-path: /
+eureka:
+  instance:
+    instance-id: consumer-items-${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:7000/eureka

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.chenahua.jtcloudcommondao.mapper.TbSalerInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.chenahua.jtcloudcommondao.po.TbSalerInfo" >
+    <result column="saler_id" property="salerId" jdbcType="BIGINT" />
+    <result column="saler_name" property="salerName" jdbcType="VARCHAR" />
+    <result column="saler_logo" property="salerLogo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.chenahua.jtcloudcommondao.po.TbSalerInfo" extends="BaseResultMap" >
+    <result column="saler_desc" property="salerDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    saler_id, saler_name, saler_logo
+  </sql>
+  <sql id="Blob_Column_List" >
+    saler_desc
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.chenahua.jtcloudcommondao.po.TbSalerInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_saler_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.chenahua.jtcloudcommondao.po.TbSalerInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_saler_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="cn.chenahua.jtcloudcommondao.po.TbSalerInfoExample" >
+    delete from tb_saler_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.chenahua.jtcloudcommondao.po.TbSalerInfo" >
+    insert into tb_saler_info (saler_id, saler_name, saler_logo, 
+      saler_desc)
+    values (#{salerId,jdbcType=BIGINT}, #{salerName,jdbcType=VARCHAR}, #{salerLogo,jdbcType=VARCHAR}, 
+      #{salerDesc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.chenahua.jtcloudcommondao.po.TbSalerInfo" >
+    insert into tb_saler_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="salerId != null" >
+        saler_id,
+      </if>
+      <if test="salerName != null" >
+        saler_name,
+      </if>
+      <if test="salerLogo != null" >
+        saler_logo,
+      </if>
+      <if test="salerDesc != null" >
+        saler_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="salerId != null" >
+        #{salerId,jdbcType=BIGINT},
+      </if>
+      <if test="salerName != null" >
+        #{salerName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerLogo != null" >
+        #{salerLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="salerDesc != null" >
+        #{salerDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.chenahua.jtcloudcommondao.po.TbSalerInfoExample" resultType="java.lang.Integer" >
+    select count(*) from tb_saler_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_saler_info
+    <set >
+      <if test="record.salerId != null" >
+        saler_id = #{record.salerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.salerName != null" >
+        saler_name = #{record.salerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salerLogo != null" >
+        saler_logo = #{record.salerLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salerDesc != null" >
+        saler_desc = #{record.salerDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tb_saler_info
+    set saler_id = #{record.salerId,jdbcType=BIGINT},
+      saler_name = #{record.salerName,jdbcType=VARCHAR},
+      saler_logo = #{record.salerLogo,jdbcType=VARCHAR},
+      saler_desc = #{record.salerDesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_saler_info
+    set saler_id = #{record.salerId,jdbcType=BIGINT},
+      saler_name = #{record.salerName,jdbcType=VARCHAR},
+      saler_logo = #{record.salerLogo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

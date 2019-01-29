@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+---
+#研发环境
+spring:
+  profiles: dev
+server:
+  port: 7000
+eureka:
+  server:
+    enable-self-preservation: false
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  instance:
+    hostname: localhost
